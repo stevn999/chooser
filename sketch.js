@@ -45,8 +45,8 @@ function setup() {
     if (tmp[i] != "") {
       arcs.push(new slice(tmp[i]))
       inp.html((tmp[i] + "\n"), true)
-    }else {
-      inp.html(("place items here" + "\n"), true)
+    }else if(tmp[i]=="" && !tmp[i+1]) {
+      tmp.slice(i,1)
     }
   }
   //console.log(TAU);
@@ -75,7 +75,7 @@ function ms() {
 
 function draw() {
 
-  speed /= 1.2
+  speed /= 1.05
   speed = +speed.toFixed(5)
   if (speed <= 0.01) {
     speed /= 1.01
