@@ -1,4 +1,4 @@
-let arcs = []
+let arcs = ["enter names here"]
 let speed = 0
 let spinCount = 0
 let spins = 0
@@ -36,12 +36,16 @@ function setup() {
     if (localStorage.getItem('arcs') == "[object Object]") {
       localStorage.removeItem('arcs')
     }
-    tmp = JSON.parse(localStorage.getItem('arcs'))
-    for (var i = 0; i < tmp.length; i++) {
-      if (tmp[i] != "") {
-        arcs.push(new slice(tmp[i]))
-        inp.html((tmp[i] + "\n"), true)
-      }
+
+
+  }else {
+
+  }
+  tmp = JSON.parse(localStorage.getItem('arcs'))
+  for (var i = 0; i < tmp.length; i++) {
+    if (tmp[i] != "") {
+      arcs.push(new slice(tmp[i]))
+      inp.html((tmp[i] + "\n"), true)
     }
   }
   //console.log(TAU);
@@ -108,7 +112,7 @@ function draw() {
     }
     arcs[i].show()
     pop()
-    
+
   }
   pop()
   push()
