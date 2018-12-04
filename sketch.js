@@ -1,4 +1,4 @@
-let arcs = ["enter names here"]
+let arcs = []
 let speed = 0
 let spinCount = 0
 let spins = 0
@@ -33,19 +33,20 @@ function setup() {
   c.mouseClicked(ms)
   if (localStorage.getItem('arcs')) {
     console.log(localStorage.getItem('arcs'));
-    if (localStorage.getItem('arcs') == "[object Object]") {
+    if (localStorage.getItem('arcs') == "[object Object]" || localStorage.getItem('arcs') == "") {
       localStorage.removeItem('arcs')
     }
-
-
-  }else {
-
+  }
+  if (!localStorage.getItem('arcs')) {
+    localStorage.setItem('arcs', '["put stuff here"]')
   }
   tmp = JSON.parse(localStorage.getItem('arcs'))
   for (var i = 0; i < tmp.length; i++) {
     if (tmp[i] != "") {
       arcs.push(new slice(tmp[i]))
       inp.html((tmp[i] + "\n"), true)
+    }else {
+      inp.html(("place items here" + "\n"), true)
     }
   }
   //console.log(TAU);
@@ -62,7 +63,7 @@ function myInputEvent() {
   }
   arcs = hold
   localStorage.setItem('arcs', JSON.stringify(tmp))
-  console.log(localStorage.getItem('arcs'));
+  //console.log(localStorage.getItem('arcs'));
 }
 
 function ms() {
