@@ -9,6 +9,7 @@ let ui
 let output
 let inp
 let line = 0
+let speedPool = 0
 var click = new Howl({
   src: "https://freesound.org/data/previews/256/256116_4486188-lq.mp3"
 })
@@ -27,6 +28,7 @@ function setup() {
   output.style("height", "200px")
   ui.parent(container)
   c = createCanvas(windowWidth, 600)
+  frameRate(120)
   c.parent(container)
   inp = createElement("textarea", '');
   inp.input(myInputEvent);
@@ -73,17 +75,19 @@ function ms() {
   offset = random(6.283)
   spinCount = 0
   spins += 1
-  speed = 5
+  speed += speed<0.5?10:speed*1.001
 }
 
 function draw() {
 
-  speed /= 1.05
+    speed /= 1.012
+
   speed = +speed.toFixed(5)
-  if (speed <= 0.01) {
-    speed /= 1.01
+  console.log(speed);
+  if (speed <= 0.5) {
+    speed /= 1.001
   }
-  if (speed <= 0.001) {
+  if (speed <= 0.002) {
     speed = 0
   }
   //console.log(speed);
