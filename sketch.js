@@ -9,6 +9,9 @@ let ui
 let output
 let inp
 let line = 0
+var click = new Howl({
+  src: "https://freesound.org/data/previews/256/256116_4486188-lq.mp3"
+})
 
 function setup() {
   container = createDiv()
@@ -19,9 +22,9 @@ function setup() {
   output.class("col-6")
   ui.class("row")
   output.id("ui")
-  output.style("overflow-y","auto")
-  output.style("max-height","200px")
-  output.style("height","200px")
+  output.style("overflow-y", "auto")
+  output.style("max-height", "200px")
+  output.style("height", "200px")
   ui.parent(container)
   c = createCanvas(windowWidth, 600)
   c.parent(container)
@@ -29,7 +32,7 @@ function setup() {
   inp.input(myInputEvent);
   inp.class("col-6")
   inp.parent(ui)
-  inp.style("resize","none")
+  inp.style("resize", "none")
   c.mouseClicked(ms)
   if (localStorage.getItem('arcs')) {
     console.log(localStorage.getItem('arcs'));
@@ -45,8 +48,8 @@ function setup() {
     if (tmp[i] != "") {
       arcs.push(new slice(tmp[i]))
       inp.html((tmp[i] + "\n"), true)
-    }else if(tmp[i]=="" && !tmp[i+1]) {
-      tmp.slice(i,1)
+    } else if (tmp[i] == "" && !tmp[i + 1]) {
+      tmp.slice(i, 1)
     }
   }
   //console.log(TAU);
@@ -96,7 +99,13 @@ function draw() {
     rotate(pr)
 
     if (((r + pr) % TAU) < 4.71 && ((r + pr) % TAU) > 4.71 - (6.283 / arcs.length)) {
+      if (arcs[i].selected == false) {
+        click.play()
+
+      }
       arcs[i].selected = true
+    } else {
+      arcs[i].selected = false
     }
     if (spins > 0 && speed == 0) {
       if (arcs[i].selected) {
@@ -139,7 +148,7 @@ class slice {
     fill(0, 0, 0, 255)
     textSize(20)
     textAlign(CENTER);
-    this.selected = false
+    //this.selected = false
     push()
     rotate((6.283 / arcs.length) / 2)
     translate(height / 2.5, 0)
