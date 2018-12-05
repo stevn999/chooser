@@ -15,24 +15,29 @@ var click = new Howl({
 })
 
 function setup() {
+  let sketch = document.getElementById("sketch")
   container = createDiv()
   container.class('container-fluid')
+  container.parent(sketch)
+
   ui = createDiv()
   output = createDiv()
   output.parent(ui)
-  output.class("col-6")
-  ui.class("row")
+  output.class("col-md-6 col-xs-12 border rounded")
+  ui.class("row border rounded")
   output.id("ui")
   output.style("overflow-y", "auto")
   output.style("max-height", "200px")
   output.style("height", "200px")
   ui.parent(container)
   c = createCanvas(windowWidth, 600)
+  windowResized()
   frameRate(120)
   c.parent(container)
   inp = createElement("textarea", '');
+  inp.style("height", "200px")
   inp.input(myInputEvent);
-  inp.class("col-6")
+  inp.class("col-md-6 col-xs-12 border rounded")
   inp.parent(ui)
   inp.style("resize", "none")
   c.mouseClicked(ms)
@@ -57,7 +62,13 @@ function setup() {
   //console.log(TAU);
 
 }
-
+function windowResized(){
+  if (windowWidth<=windowHeight/1.8) {
+    resizeCanvas(windowWidth, windowWidth*0.9);
+  }else {
+    resizeCanvas(windowWidth, windowHeight/1.8);
+  }
+}
 function myInputEvent() {
   let tmp = this.value().split('\n')
   let hold = []
