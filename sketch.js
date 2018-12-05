@@ -136,16 +136,18 @@ function draw() {
 class slice {
   constructor(name = " ") {
     this.name = name
-    this.color = random(10, 256)
+    this.color = (stringToNum(this.name)*16777216)%255
     this.selected = false
   }
   show() {
     push()
     colorMode(HSB, 255, 255, 255, 255)
     if (this.selected) {
-      fill(5, 250, 200, 255)
+      this.color = lerp(this.color,255,0.05)
+      fill(this.color, 250, 200, 255)
     } else {
-      fill((stringToNum(this.name)*16777216)%255, 200, 200, 255)
+      this.color = (stringToNum(this.name)*16777216)%255
+      fill(this.color, 200, 200, 255)
     }
     arc(0, 0, height, height, 0, 6.283 / arcs.length, PIE)
     pop()
@@ -168,4 +170,3 @@ function stringToNum(str) {
   }
   return tmp
 }
-console.log(stringToNum("hiasd "));
