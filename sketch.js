@@ -83,7 +83,7 @@ function draw() {
     speed /= 1.012
 
   speed = +speed.toFixed(5)
-  console.log(speed);
+  //console.log(speed);
   if (speed <= 0.5) {
     speed /= 1.001
   }
@@ -145,7 +145,7 @@ class slice {
     if (this.selected) {
       fill(5, 250, 200, 255)
     } else {
-      fill(this.color, 200, 200, 255)
+      fill((stringToNum(this.name)*16777216)%255, 200, 200, 255)
     }
     arc(0, 0, height, height, 0, 6.283 / arcs.length, PIE)
     pop()
@@ -161,3 +161,11 @@ class slice {
     pop()
   }
 }
+function stringToNum(str) {
+  let tmp = 0
+  for (var i = 0; i < str.length; i++) {
+  tmp += (str.charCodeAt(i));
+  }
+  return tmp
+}
+console.log(stringToNum("hiasd "));
