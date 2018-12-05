@@ -10,6 +10,7 @@ let output
 let inp
 let line = 0
 let speedPool = 0
+let img
 var click = new Howl({
   src: "https://freesound.org/data/previews/256/256116_4486188-lq.mp3"
 })
@@ -62,13 +63,15 @@ function setup() {
   //console.log(TAU);
 
 }
-function windowResized(){
-  if (windowWidth<=windowHeight/1.8) {
-    resizeCanvas(windowWidth, windowWidth*0.9);
-  }else {
-    resizeCanvas(windowWidth, windowHeight/1.8);
+
+function windowResized() {
+  if (windowWidth <= windowHeight / 1.8) {
+    resizeCanvas(windowWidth, windowWidth * 0.9);
+  } else {
+    resizeCanvas(windowWidth, windowHeight / 1.8);
   }
 }
+
 function myInputEvent() {
   let tmp = this.value().split('\n')
   let hold = []
@@ -86,12 +89,12 @@ function ms() {
   offset = random(6.283)
   spinCount = 0
   spins += 1
-  speed += speed<0.5?10:speed*1.001
+  speed += speed < 0.5 ? 10 : speed * 1.001
 }
 
 function draw() {
 
-    speed /= 1.012
+  speed /= 1.012
 
   speed = +speed.toFixed(5)
   //console.log(speed);
@@ -128,7 +131,13 @@ function draw() {
         let temp = createDiv(`${line}: ${arcs[i].name}`)
         temp.class('d-block col')
         temp.id(line)
+        if (line % 2 == 0) {
 
+          temp.style("background", "#989898")
+        } else {
+          temp.style("background", "#FFFFFF")
+        }
+        temp.class("text-center rounded outline font-weight-bold")
         temp.parent(output)
         spins = 0
       }
@@ -143,21 +152,22 @@ function draw() {
   push()
   ellipse(0, -height / 2, 10)
   pop()
+
 }
 class slice {
   constructor(name = " ") {
     this.name = name
-    this.color = (stringToNum(this.name)*16777216)%255
+    this.color = (stringToNum(this.name) * 16777216) % 255
     this.selected = false
   }
   show() {
     push()
     colorMode(HSB, 255, 255, 255, 255)
     if (this.selected) {
-      this.color = lerp(this.color,255,0.05)
+      this.color = lerp(this.color, 255, 0.05)
       fill(this.color, 250, 200, 255)
     } else {
-      this.color = (stringToNum(this.name)*16777216)%255
+      this.color = (stringToNum(this.name) * 16777216) % 255
       fill(this.color, 200, 200, 255)
     }
     arc(0, 0, height, height, 0, 6.283 / arcs.length, PIE)
@@ -170,14 +180,17 @@ class slice {
     rotate((6.283 / arcs.length) / 2)
     translate(height / 2.5, 0)
     rotate(3.141 / 2)
+
     text(this.name, 0, 0)
+    
     pop()
   }
 }
+
 function stringToNum(str) {
   let tmp = 0
   for (var i = 0; i < str.length; i++) {
-  tmp += (str.charCodeAt(i));
+    tmp += (str.charCodeAt(i));
   }
   return tmp
 }
