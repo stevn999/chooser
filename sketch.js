@@ -66,9 +66,9 @@ function setup() {
 
 function windowResized() {
   if (windowWidth <= windowHeight / 1.8) {
-    resizeCanvas(windowWidth, windowWidth * 0.9);
+    resizeCanvas(windowWidth*0.9, windowWidth * 0.9);
   } else {
-    resizeCanvas(windowWidth, windowHeight / 1.8);
+    resizeCanvas(windowWidth*0.9, windowHeight / 1.8);
   }
 }
 
@@ -90,11 +90,14 @@ function ms() {
   spinCount = 0
   spins += 1
   speed += speed < 0.5 ? 10 : speed * 1.001
+  if (speed>60) {
+    speed=60
+  }
 }
 
 function draw() {
 
-  speed /= 1.012
+  speed /= 1.01
 
   speed = +speed.toFixed(5)
   //console.log(speed);
@@ -157,17 +160,18 @@ function draw() {
 class slice {
   constructor(name = " ") {
     this.name = name
-    this.color = (stringToNum(this.name) * 16777216) % 255
+    this.f = ((stringToNum(this.name)/100) * 16777216) % 255
+    this.color = this.f
     this.selected = false
   }
   show() {
     push()
     colorMode(HSB, 255, 255, 255, 255)
     if (this.selected) {
-      this.color = lerp(this.color, 255, 0.05)
+      this.color = lerp(this.color, 255, 0.5)
       fill(this.color, 250, 200, 255)
     } else {
-      this.color = (stringToNum(this.name) * 16777216) % 255
+      this.color = lerp(this.color,(this.f),0.1)
       fill(this.color, 200, 200, 255)
     }
     arc(0, 0, height, height, 0, 6.283 / arcs.length, PIE)
@@ -182,7 +186,7 @@ class slice {
     rotate(3.141 / 2)
 
     text(this.name, 0, 0)
-    
+
     pop()
   }
 }
