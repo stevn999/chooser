@@ -182,8 +182,11 @@ class slice {
     //this.selected = false
     push()
     rotate((6.283 / arcs.length) / 2)
-    translate(height / 2.5, 0)
-    rotate(3.141 / 2)
+    translate(height / (this.name.length>15?this.name.length:2.5), 0)
+    if (this.name.length>15) {
+      textAlign(LEFT)
+    }
+    rotate(6.283 / (this.name.length>15?1:4))
 
     text(this.name, 0, 0)
 
